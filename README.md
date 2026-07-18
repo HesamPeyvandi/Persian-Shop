@@ -2,7 +2,7 @@
 
 A fully-featured, RTL-first e-commerce storefront built as a portfolio project — demonstrating modern React/Next.js architecture, clean component design, and a polished, production-style user experience from browsing to checkout.
 
-**[🔗 Live Demo](#)** &nbsp;·&nbsp; **[📂 Source Code](#)**
+**[🔗 Live Demo]([#](https://persian-shop.vercel.app/))**
 
 <!-- Replace the links above with your actual Vercel URL and GitHub repo URL -->
 
