@@ -10,7 +10,7 @@ import {
   BrandLogosSection,
 } from '@/features/home/info-sections';
 
-export const revalidate = 3600;
+export const dynamic = 'force-dynamic';
 
 export default async function HomePage() {
   const [products, categories] = await Promise.all([api.getProducts(), api.getCategories()]);

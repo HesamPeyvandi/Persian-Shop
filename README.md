@@ -1,83 +1,124 @@
-# پرشین‌شاپ (Persian Shop)
+# 🛍️ Persian Shop
 
-فروشگاه آنلاین نمونه، ساخته‌شده با Next.js 14 (App Router) و TypeScript، به‌عنوان یک پروژه پرتفولیو RTL فارسی.
+A fully-featured, RTL-first e-commerce storefront built as a portfolio project — demonstrating modern React/Next.js architecture, clean component design, and a polished, production-style user experience from browsing to checkout.
 
-## Technologies Used
+**[🔗 Live Demo](#)** &nbsp;·&nbsp; **[📂 Source Code](#)**
 
-- **Next.js 14** (App Router, Server Components)
-- **TypeScript**
-- **Tailwind CSS** + custom design tokens (light/dark)
-- **shadcn/ui**-style primitives (Radix UI under the hood)
-- **Lucide React** icons
-- **Framer Motion** animations
-- **next-themes** for dark/light mode
-- **TanStack Query** for client-side data fetching/caching
-- **React Hook Form + Zod** for form validation
-- **Sonner** for toast notifications
-- **Fake Store API** (https://fakestoreapi.com) as the only data source
+<!-- Replace the links above with your actual Vercel URL and GitHub repo URL -->
 
-## Folder Structure
+![Next.js](https://img.shields.io/badge/Next.js-14-black?logo=next.js)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3-38bdf8?logo=tailwindcss)
+![License](https://img.shields.io/badge/license-MIT-green)
+
+---
+
+## Overview
+
+Persian Shop is a demo e-commerce application built to showcase full front-end product development skills: a complete shopping flow (browse → cart → checkout), authentication, user account management, and a fully right-to-left (RTL) interface for Persian-speaking users — all built on top of the [Fake Store API](https://fakestoreapi.com).
+
+It's designed to reflect the kind of structure, code quality, and attention to detail expected in a real production codebase, not just a tutorial project.
+
+## Features
+
+- 🛒 **Shopping flow** — product listing with filters & sorting, product detail pages, cart, and a multi-step checkout
+- ❤️ **Wishlist** and **recently viewed products**
+- 🔐 **Authentication** — login, registration, and protected account pages
+- 👤 **Account management** — profile editing and order history
+- 🌗 **Light/Dark mode** with persisted theme preference
+- 🌍 **Full RTL support** — built natively for Persian (Farsi), including a localized Iranian province/city address picker
+- 🔎 **Debounced search** with search history
+- 📄 **Static pages** — About, Contact, FAQ, Privacy Policy, Terms of Service
+- ⚡ **SEO-ready** — dynamic sitemap and robots.txt
+- 🎨 **Polished UI/UX** — smooth animations, loading/skeleton states, toast notifications, and accessible components
+
+## Tech Stack
+
+| Category | Technology |
+|---|---|
+| Framework | [Next.js 14](https://nextjs.org/) (App Router, Server Components) |
+| Language | [TypeScript](https://www.typescriptlang.org/) |
+| Styling | [Tailwind CSS](https://tailwindcss.com/) with custom design tokens |
+| UI Primitives | [Radix UI](https://www.radix-ui.com/) (shadcn/ui-style components) |
+| Data Fetching | [TanStack Query](https://tanstack.com/query) |
+| Forms & Validation | [React Hook Form](https://react-hook-form.com/) + [Zod](https://zod.dev/) |
+| Animations | [Framer Motion](https://www.framer.com/motion/) |
+| Theming | [next-themes](https://github.com/pacocoursey/next-themes) |
+| Notifications | [Sonner](https://sonner.emilkowal.ski/) |
+| Icons | [Lucide React](https://lucide.dev/) |
+| Data Source | [Fake Store API](https://fakestoreapi.com) |
+
+## Project Structure
 
 ```
-app/            # App Router routes, layouts, loading/error/not-found states
-components/     # Reusable UI (ui/, layout/, product/, shared/)
-features/       # Feature-scoped modules (home sections, product-detail, checkout)
-services/       # API layer (Fake Store API client)
-hooks/          # Reusable hooks (useDebounce, useLocalStorage, useProducts, ...)
-contexts/       # React Context providers (cart, wishlist, auth, recently-viewed)
-types/          # Shared TypeScript types
-utils/          # Pure utility functions (filtering/sorting)
-lib/            # cn() and formatting helpers
+persian-shop/
+├── app/                  # Routes (App Router) — pages, layouts, loading/error states
+├── components/
+│   ├── layout/           # Header, footer, mini-cart, theme toggle
+│   ├── product/          # Product card, filters, grid, sorting
+│   ├── shared/           # Context providers
+│   └── ui/                # Reusable, accessible UI primitives
+├── features/             # Feature-scoped components (home, checkout, product-detail)
+├── contexts/             # React Context providers (auth, cart, wishlist, orders)
+├── hooks/                # Custom hooks (debounce, local storage, search history)
+├── services/             # API layer
+├── constants/            # Static data (e.g. Iran provinces/cities)
+├── types/                # Shared TypeScript types
+└── utils/                # Utility functions
 ```
 
-## Installation
+## Getting Started
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) 18.17 or later
+- npm (or your package manager of choice)
+
+### Installation
 
 ```bash
+# Clone the repository
+git clone https://github.com/<your-username>/persian-shop.git
+cd persian-shop
+
+# Install dependencies
 npm install
+
+# Run the development server
+npm run dev
 ```
 
-## Environment Variables
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-None required — the app talks directly to the public Fake Store API
-(`https://fakestoreapi.com`) from the browser and from Server Components.
+### Available Scripts
 
-## Running the Project
+| Command | Description |
+|---|---|
+| `npm run dev` | Start the development server |
+| `npm run build` | Create a production build |
+| `npm run start` | Run the production build locally |
+| `npm run lint` | Run ESLint |
 
-```bash
-npm run dev      # http://localhost:3000
-npm run build
-npm run start
-```
+No environment variables are required — the app runs entirely against the public Fake Store API.
 
-## Implemented Features
+## Deployment
 
-- RTL Persian layout with the Vazirmatn font, light/dark theme (persisted)
-- Sticky header, mobile nav, real-time debounced search with history
-- Homepage: hero, categories, featured/latest products, why-us, testimonials
-  (mock), brand logos, FAQ, newsletter
-- Product listing with category / price / rating filters + sorting, all
-  synced to the URL query string (`?category=...&sort=...&page=...`)
-- Product detail page with dynamic metadata, JSON-LD Product schema,
-  breadcrumb, mock reviews, related products, recently-viewed tracking
-- Cart with quantity controls, mock shipping + discount code, persisted to
-  `localStorage`
-- Checkout form fully validated with Zod
-- Login / Register wired to the real Fake Store API auth endpoints
-- Wishlist, recently-viewed, and search-history, all `localStorage`-persisted
-- Skeleton loading states, custom Persian 404, error boundary
-- `sitemap.ts` / `robots.ts`, Open Graph & Twitter metadata per page
+This project is optimized for zero-config deployment on [Vercel](https://vercel.com):
 
-## Known Limitations / Future Improvements
+1. Push the repository to GitHub
+2. Import the project into Vercel
+3. Deploy — no environment variables needed
 
-Fake Store API has no cart, review, or "best seller" endpoints, so those are
-UI-only / mocked, as scoped in the original brief. Also left as good next
-steps for a real product:
+## Roadmap
 
-- Wire the mini-cart / cart / checkout into a real backend or serverless
-  checkout endpoint
-- Replace the mocked review data with a real reviews service
-- Add pagination (currently all Fake Store products are filtered client-side
-  since the API has no server-side pagination)
-- Expand automated tests (unit + e2e) and add CI
-- Swap the mock USD→Toman conversion in `lib/utils.ts` with a real pricing
-  source if this goes into production
+- [ ] Persist cart/wishlist to a real backend
+- [ ] Add automated tests (unit + e2e)
+- [ ] Payment gateway integration
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
+## Author
+
+Built by **Hesam Peyvandi** — [GitHub](https://github.com/HesamPeyvandi)

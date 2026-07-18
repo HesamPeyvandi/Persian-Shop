@@ -16,6 +16,8 @@ interface Props {
   params: { id: string };
 }
 
+export const dynamic = 'force-dynamic';
+
 async function getProductSafe(id: string) {
   try {
     return await api.getProduct(id);
@@ -42,7 +44,7 @@ export default async function ProductDetailPage({ params }: Props) {
   const product = await getProductSafe(params.id);
   if (!product) notFound();
 
-  const allProducts = await api.getProducts();
+  const allProducts = await api.getProducts().catch(() => []);
   const related = allProducts.filter((p) => p.category === product.category && p.id !== product.id).slice(0, 4);
 
   const jsonLd = {
