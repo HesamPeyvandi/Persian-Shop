@@ -1,7 +1,10 @@
-import { api } from '@/services/api';
+'use client';
+
+import { useProducts, useCategories } from '@/hooks/useProducts';
 import { HeroSection } from '@/features/home/hero-section';
 import { CategoriesSection } from '@/features/home/categories-section';
 import { ProductGrid } from '@/components/product/product-grid';
+import { ProductGridSkeleton } from '@/components/ui/skeleton';
 import {
   WhyChooseUsSection,
   TestimonialsSection,
@@ -10,26 +13,21 @@ import {
   BrandLogosSection,
 } from '@/features/home/info-sections';
 
-export const dynamic = 'force-dynamic';
+export default function HomePage() {
+  const { data: products, isLoading, isError } = useProducts();
+  const { data: categories } = useCategories();
 
-export default async function HomePage() {
-  const [productsResult, categoriesResult] = await Promise.allSettled([
-    api.getProducts(),
-    api.getCategories(),
-  ]);
-
-  const products = productsResult.status === 'fulfilled' ? productsResult.value : [];
-  const categories = categoriesResult.status === 'fulfilled' ? categoriesResult.value : [];
-
-  const featured = [...products].sort((a, b) => b.rating.rate - a.rating.rate).slice(0, 8);
-  const latest = [...products].sort((a, b) => b.id - a.id).slice(0, 8);
+  const featured = products
+    ? [...products].sort((a, b) => b.rating.rate - a.rating.rate).slice(0, 8)
+    : [];
+  const latest = products ? [...products].sort((a, b) => b.id - a.id).slice(0, 8) : [];
 
   return (
     <>
       <HeroSection />
-      <CategoriesSection categories={categories} />
+      <CategoriesSection categories={categories ?? []} />
 
-      {products.length === 0 && (
+      {isError && (
         <div className="container py-6">
           <div className="rounded-lg border border-dashed p-4 text-center text-sm text-muted-foreground">
             در حال حاضر امکان بارگذاری محصولات وجود ندارد. لطفاً چند لحظه دیگر صفحه را رفرش کنید.
@@ -41,21 +39,21 @@ export default async function HomePage() {
         <div className="flex items-center justify-between mb-8">
           <h2 className="text-2xl font-bold">محصولات ویژه</h2>
         </div>
-        <ProductGrid products={featured} />
+        {isLoading ? <ProductGridSkeleton count={8} /> : <ProductGrid products={featured} />}
       </section>
 
       <section className="container py-14">
         <div className="flex items-center justify-between mb-8">
           <h2 className="text-2xl font-bold">جدیدترین محصولات</h2>
         </div>
-        <ProductGrid products={latest} />
+        {isLoading ? <ProductGridSkeleton count={8} /> : <ProductGrid products={latest} />}
       </section>
 
       <WhyChooseUsSection />
       <TestimonialsSection />
-      <BrandLogosSection />
       <FaqSection />
       <NewsletterSection />
+      <BrandLogosSection />
     </>
   );
 }
